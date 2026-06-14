@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Innerview — 나를 인터뷰하다</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:#05050e;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:0;}
+.app{width:100%;max-width:390px;min-height:100vh;background:#0a0a14;display:flex;flex-direction:column;position:relative;}
+.sb{padding:10px 20px 6px;display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#444;flex-shrink:0;}
+.scr{display:flex;flex-direction:column;flex:1;overflow-y:auto;padding-bottom:24px;}
+.eyebrow{font-size:9px;color:#4f46e5;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
+.big-title{font-size:24px;font-weight:900;color:#f0f0ff;line-height:1.2;}
+.sub{font-size:12px;color:#555;margin-top:6px;}
+.menu-btn{border:1px solid #1a1840;border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;width:100%;margin-bottom:10px;transition:opacity .15s;}
+.menu-btn:active{opacity:.75;}
+.mtitle{font-size:14px;font-weight:900;color:#f0f0ff;margin-bottom:2px;}
+.mdesc{font-size:11px;color:#555;}
+.marrow{margin-left:auto;color:#444;font-size:20px;}
+.sh{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;}
+.sl{font-size:13px;font-weight:700;color:#e0e0f0;}
+.back{background:none;border:none;cursor:pointer;color:#666;font-size:12px;display:flex;align-items:center;gap:3px;font-family:inherit;padding:0;}
+.egrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px;}
+.ebtn{background:#13131f;border:1.5px solid #1e1e35;border-radius:14px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .15s;}
+.ebtn:active{background:#1a1040;border-color:#4f46e5;}
+.eicon{font-size:24px;}
+.elabel{font-size:11px;color:#777;font-weight:700;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px;}
+.chip{background:#13131f;border:1.5px solid #1e1e35;border-radius:99px;padding:7px 14px;font-size:12px;color:#666;cursor:pointer;font-weight:700;font-family:inherit;transition:all .15s;}
+.chip.on{background:#1a1040;border-color:#4f46e5;color:#a78bfa;}
+.bgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:0 16px;}
+.bbtn{background:#13131f;border:1.5px solid #1e1e35;border-radius:12px;padding:10px 12px;font-size:12px;color:#666;cursor:pointer;font-weight:600;text-align:left;font-family:inherit;transition:all .15s;}
+.bbtn.on{background:#0c1a26;border-color:#0ea5e9;color:#38bdf8;}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px;}
+.tbtn{background:#13131f;border:1.5px solid #1e1e35;border-radius:12px;padding:12px 8px;font-size:11px;color:#666;cursor:pointer;font-weight:700;font-family:inherit;text-align:center;transition:all .15s;}
+.tbtn.on{background:#1a1500;border-color:#ca8a04;color:#fbbf24;}
+textarea{background:#13131f;border:1.5px solid #1e1e35;border-radius:14px;padding:14px;font-size:13px;color:#d0d0e0;width:calc(100% - 32px);margin:8px 16px 0;resize:none;outline:none;font-family:inherit;line-height:1.6;display:block;}
+textarea::placeholder{color:#444;}
+textarea:focus{border-color:#4f46e5;}
+.pbtn{width:calc(100% - 32px);margin:10px 16px 0;padding:13px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border:none;border-radius:14px;color:#fff;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;display:block;transition:all .2s;}
+.pbtn:disabled{background:#1e1e35;color:#555;cursor:not-allowed;}
+.pbtn:active:not(:disabled){transform:scale(.98);}
+.rcard{margin:14px 16px 8px;background:#0d0d1f;border-radius:16px;padding:16px;border:1px solid #1e1e40;}
+.gcard{margin:0 16px 8px;background:#091811;border-radius:16px;padding:16px;border:1px solid #052e16;}
+.rlabel{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;display:block;}
+.rbody{font-size:13px;line-height:1.8;color:#888;}
+.reset{width:calc(100% - 32px);margin:4px 16px 8px;padding:12px;background:#4f46e5;color:#fff;border:none;border-radius:14px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;display:block;transition:all .2s;}
+.reset:active{transform:scale(.98);}
+.wcard{margin:14px 16px 0;background:#0d0d1f;border-radius:14px;padding:14px;border:1px solid #1e1e35;}
+.sbox{background:#13131f;border-radius:14px;padding:14px;border:1px solid #1e1e35;text-align:center;}
+.litem{background:#13131f;border:1.5px solid #1e1e35;border-radius:12px;padding:14px 16px;font-size:13px;color:#777;cursor:pointer;font-weight:700;font-family:inherit;text-align:left;width:calc(100% - 32px);margin:0 16px 8px;display:block;transition:all .15s;}
+.litem:active{background:#1a1040;border-color:#4f46e5;color:#a78bfa;}
+.logitem{margin:0 16px 8px;background:#13131f;border-radius:14px;padding:14px;border:1px solid #1e1e35;}
+.toast{position:fixed;top:52px;left:50%;transform:translateX(-50%) translateY(-8px);background:#1e1e35;color:#a78bfa;font-size:12px;font-weight:700;padding:7px 16px;border-radius:99px;z-index:99;opacity:0;transition:all .25s;border:1px solid #4f46e5;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.rtypes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px;}
+.rtbtn{background:#13131f;border:1.5px solid #1e1e35;border-radius:12px;padding:14px 8px;font-size:12px;color:#777;cursor:pointer;font-weight:700;font-family:inherit;text-align:center;transition:all .15s;}
+.rtbtn:active{background:#1a1040;border-color:#4f46e5;color:#a78bfa;}
+.wbox{background:#080818;border-radius:10px;padding:10px;margin-top:8px;}
+.mbox{background:#1a0a1a;border-radius:10px;padding:10px;margin-bottom:10px;border:1px solid #3f0f3f;}
+.ibox{background:#0a1530;border-radius:10px;padding:10px;border:1px solid #1e3a6e;}
+.warnbox{background:#1a0a0a;border-radius:10px;padding:10px;border:1px solid #3f1515;margin-top:8px;}
+.bar-bg{background:#0a0a18;border-radius:99px;height:5px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:8px 16px 10px;}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="sb"><span id="clk">--:--</span><span>●●● ■</span></div>
+  <div class="scr" id="root"></div>
+  <div class="toast" id="toast"></div>
+</div>
+<script>
+const PROXY='/api/proxy';
+const ME=[{n:'화남',i:'😤'},{n:'슬픔',i:'😢'},{n:'불안',i:'😰'},{n:'우울',i:'😔'},{n:'지침',i:'😩'},{n:'공허함',i:'🌑'},{n:'혼란',i:'🌀'},{n:'기쁨',i:'😊'},{n:'기타',i:'✏️'}];
+const SE={'화남':['짜증남','억울함','서운함','배신감','무시당한 느낌'],'슬픔':['외로움','그리움','실망','상실감','허탈함'],'불안':['초조함','두려움','걱정','긴장','불확실함'],'우울':['무기력','절망','자책','무감각','허무함'],'지침':['번아웃','과부하','피로감','포기하고 싶음','방전됨'],'공허함':['허무함','의욕없음','텅 빈 느낌','존재감 없음','아무것도 하기 싫음'],'혼란':['갈등','모르겠음','복잡함','결정 못하겠음','뒤죽박죽'],'기쁨':['설렘','감사함','뿌듯함','행복함','만족감'],'기타':[]};
+const BO=['가슴이 답답함','목이 막히는 느낌','머리가 무거움','눈물이 날 것 같음','손발이 떨림','배가 뒤틀림','몸에 힘이 없음','심장이 빠르게 뜀','얼굴이 달아오름','아무것도 안 느껴짐'];
+const TR=['육아/가족','일/업무','관계','돈/경제','건강','내면/자존감'];
+const RT=['연인','친구','직장/상사','가족','지인'];
+const WP=['작심삼일 반복','운동 못 지킴','공부 계획 무너짐','식단 실패','기상 시간 못 지킴','기타'];
+const EC={'화남':'#f87171','슬픔':'#60a5fa','불안':'#fbbf24','우울':'#a78bfa','지침':'#fb923c','공허함':'#94a3b8','혼란':'#34d399','기쁨':'#4ade80','기타':'#e879f9'};
+
+let S={scr:'home',logs:JSON.parse(localStorage.getItem('iv_logs')||'[]'),e:{main:'',icon:'',subs:[],bodies:[],bt:'',ce:'',trig:'',memo:'',res:null,step:0},r:{type:'',sit:'',react:'',res:null,step:0},w:{pat:'',desc:'',res:null,step:0}};
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function savelog(e){S.logs=[e,...S.logs];localStorage.setItem('iv_logs',JSON.stringify(S.logs));}
+
+async function ai(prompt){
+  const r=await fetch(PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  const d=await r.json();
+  return JSON.parse((d.content?.[0]?.text||'').replace(/```json|```/g,'').trim());
+}
+
+function back(){return`<svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 3L5 9l6 6"/></svg>`;}
+function micon(t){
+  const d={emotion:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="10"/><path d="M9 17s1.5 2 5 2 5-2 5-2"/><circle cx="11" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="12" r="1" fill="currentColor" stroke="none"/></svg>`,relation:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="9" r="4"/><circle cx="18" cy="9" r="4"/><path d="M3 24c0-4 3-6 7-6h8c4 0 7 2 7 6"/></svg>`,will:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="14" r="9"/><path d="M14 9v5l3 2"/></svg>`,pattern:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="18" width="5" height="7" rx="1"/><rect x="11" y="12" width="5" height="13" rx="1"/><rect x="19" y="6" width="5" height="19" rx="1"/><path d="M5.5 17l6-5 6-3 5-4"/></svg>`};
+  return d[t]||'';
+}
+
+function render(){
+  const root=document.getElementById('root');
+  if(S.scr==='home')root.innerHTML=home();
+  else if(S.scr==='emotion')root.innerHTML=emotion();
+  else if(S.scr==='relation')root.innerHTML=relation();
+  else if(S.scr==='will')root.innerHTML=will();
+  else if(S.scr==='pattern')root.innerHTML=pattern();
+  bind();
+}
+
+function home(){
+  const wc=S.logs.filter(l=>(Date.now()-l.id)<604800000).length;
+  const last=S.logs.length?'· 마지막 '+S.logs[0].date:'';
+  const menu=[
+    {id:'emotion',c:'#4f46e5',bg:'#0d0b2a',ic:'emotion',t:'감정 기록',d:'지금 내 감정 분석하기'},
+    {id:'relation',c:'#0ea5e9',bg:'#061620',ic:'relation',t:'관계 분석',d:'상대 심리 + 내 대응법'},
+    {id:'will',c:'#10b981',bg:'#061612',ic:'will',t:'의지 코칭',d:'작심삼일 패턴 깨기'},
+    {id:'pattern',c:'#f59e0b',bg:'#1a1200',ic:'pattern',t:'내 패턴',d:'쌓인 기록 기반 인사이트'},
+  ];
+  return`<div style="padding:24px 16px 10px"><p class="eyebrow">Innerview</p><h1 class="big-title">나를<br>인터뷰하다</h1><p class="sub">내면을 들여다보는 시간</p></div>
+<div style="padding:8px 16px 0">${menu.map(m=>`<button class="menu-btn" data-nav="${m.id}" style="background:${m.bg}"><div style="color:${m.c}">${micon(m.ic)}</div><div><div class="mtitle">${m.t}</div><div class="mdesc">${m.d}</div></div><div class="marrow">›</div></button>`).join('')}</div>
+<div class="wcard"><p class="eyebrow" style="margin-bottom:6px">이번 주</p><span style="font-size:12px;color:#555">${wc}개 기록 ${last}</span></div>`;
+}
+
+function hdr(t){return`<div style="padding:14px 16px 4px;display:flex;align-items:center;gap:10px"><button class="back" data-nav="home">${back()}</button><div><p class="eyebrow">Innerview</p><h2 style="font-size:17px;font-weight:900;color:#f0f0ff">${t}</h2></div></div>`;}
+
+function emotion(){
+  const e=S.e;let c='';
+  if(e.step===0){
+    c=`<div class="sh"><span class="sl">지금 어떤 감정이야?</span></div><div class="egrid">${ME.map(m=>`<button class="ebtn" data-emo="${m.n}" data-ei="${m.i}"><span class="eicon">${m.i}</span><span class="elabel">${m.n}</span></button>`).join('')}</div>`;
+  }else if(e.step===1){
+    c=`<div class="sh"><span class="sl">${e.icon} ${e.main} 세부 감정</span><button class="back" data-estep="0">${back()} 이전</button></div>
+<div class="chips">${(SE[e.main]||[]).map(s=>`<button class="chip${e.subs.includes(s)?' on':''}" data-sub="${s}">${s}</button>`).join('')}</div>
+<textarea placeholder="여기 없으면 직접 써줘" id="ce">${e.ce}</textarea>
+<button class="pbtn" data-estep="2">신체 반응 →</button>`;
+  }else if(e.step===2){
+    c=`<div class="sh"><span class="sl">신체 반응 (여러 개 가능)</span><button class="back" data-estep="1">${back()} 이전</button></div>
+<div class="bgrid">${BO.map(b=>`<button class="bbtn${e.bodies.includes(b)?' on':''}" data-body="${b}">${b}</button>`).join('')}</div>
+<textarea placeholder="목록에 없는 반응 써줘" id="bt">${e.bt}</textarea>
+<button class="pbtn" data-estep="3">트리거 선택 →</button>`;
+  }else if(e.step===3){
+    c=`<div class="sh"><span class="sl">어떤 상황에서 생겼어?</span><button class="back" data-estep="2">${back()} 이전</button></div>
+<div class="tgrid">${TR.map(t=>`<button class="tbtn${e.trig===t?' on':''}" data-trig="${t}">${t}</button>`).join('')}</div>
+<button class="pbtn" data-estep="4">메모 →</button>`;
+  }else if(e.step===4){
+    c=`<div class="sh"><span class="sl">어떤 상황이었어? (선택)</span><button class="back" data-estep="3">${back()} 이전</button></div>
+<textarea rows="4" placeholder="짧게라도 써줘. 쓰는 것만으로도 정리돼" id="memo">${e.memo}</textarea>
+${!e.res?`<button class="pbtn" id="eanal">🧠 감정 분석하기</button>`:eresult(e.res)+`<button class="reset" id="ereset">✏️ 새로 기록하기</button>`}`;
+  }
+  return hdr('감정 기록')+c;
+}
+
+function eresult(r){
+  return`<div class="rcard">
+<span class="rlabel" style="color:#4f46e5">분석 결과</span>
+<p style="font-size:18px;font-weight:900;color:#f0f0ff;margin-bottom:5px">실제 감정: <span style="color:#a78bfa">${r.realEmotion}</span></p>
+<p style="font-size:12px;color:${r.match?'#34d399':'#f472b6'};font-weight:700;margin-bottom:10px">${r.match?'✓ ':'↺ '}${r.matchComment}</p>
+<p style="font-size:13px;line-height:1.8;color:#888">${r.analysis}</p>
+<div class="wbox"><p style="font-size:9px;color:#444;font-weight:700;margin-bottom:4px;letter-spacing:1px">판단 근거</p>
+<p style="font-size:12px;color:#555;line-height:1.7;white-space:pre-line">${r.evidence}</p></div></div>
+<div class="gcard"><span class="rlabel" style="color:#34d399">해소 방법</span>
+<p style="font-size:13px;line-height:1.9;color:#6ee7b7;white-space:pre-line">${r.suggestion}</p></div>`;
+}
+
+function relation(){
+  const r=S.r;let c='';
+  if(r.step===0){
+    c=`<div class="sh"><span class="sl">어떤 관계에서 생긴 일이야?</span></div>
+<div class="rtypes">${RT.map(t=>`<button class="rtbtn" data-rtype="${t}">${t}</button>`).join('')}</div>`;
+  }else if(r.step===1){
+    c=`<div class="sh"><span class="sl">${r.type}과의 상황을 써줘</span><button class="back" data-rstep="0">${back()} 이전</button></div>
+<p style="font-size:11px;color:#555;padding:0 16px 6px;line-height:1.6">카톡 내용, 대화, 무슨 일이 있었는지 자유롭게</p>
+<textarea rows="5" placeholder="예: 친구가 갑자기 연락을 끊었어..." id="sit">${r.sit}</textarea>
+<button class="pbtn" data-rstep="2">내 반응 입력 →</button>`;
+  }else if(r.step===2){
+    c=`<div class="sh"><span class="sl">나는 어떻게 반응했어?</span><button class="back" data-rstep="1">${back()} 이전</button></div>
+<textarea rows="3" placeholder="예: 참았다 / 화를 냈다 / 아무 말도 못했다" id="react">${r.react}</textarea>
+${!r.res?`<button class="pbtn" id="ranal">🧠 관계 분석하기</button>`:rresult(r.res)+`<button class="reset" id="rreset">새 상황 분석하기</button>`}`;
+  }
+  return hdr('관계 분석')+c;
+}
+
+function rresult(r){
+  return`<div class="rcard">
+<span class="rlabel" style="color:#0ea5e9">상대방 심리</span><p style="font-size:13px;line-height:1.8;color:#888;margin-bottom:12px">${r.otherPsych}</p>
+<span class="rlabel" style="color:#f472b6">내 반응 패턴</span><p style="font-size:13px;line-height:1.8;color:#888;margin-bottom:12px">${r.myPattern}</p>
+<span class="rlabel" style="color:#fbbf24">근본 원인</span><p style="font-size:13px;line-height:1.8;color:#888">${r.rootCause}</p></div>
+<div class="gcard"><span class="rlabel" style="color:#34d399">이렇게 대응해</span>
+<p style="font-size:13px;line-height:1.9;color:#6ee7b7;white-space:pre-line;margin-bottom:10px">${r.action}</p>
+<div class="warnbox"><p style="font-size:9px;color:#ef4444;font-weight:700;margin-bottom:3px;letter-spacing:1px">⚠️ 이건 하지 마</p>
+<p style="font-size:12px;color:#f87171;line-height:1.5">${r.warning}</p></div></div>`;
+}
+
+function will(){
+  const w=S.w;let c='';
+  if(w.step===0){
+    c=`<div class="sh"><span class="sl">어떤 패턴이 반복돼?</span></div>
+<p style="font-size:11px;color:#555;padding:0 16px 8px;line-height:1.6">의지력 탓이 아니야. 패턴을 알면 시스템으로 바꿀 수 있어.</p>
+${WP.map(p=>`<button class="litem" data-wpat="${p}">${p}</button>`).join('')}`;
+  }else if(w.step===1){
+    c=`<div class="sh"><span class="sl">"${w.pat}" 구체적으로?</span><button class="back" data-wstep="0">${back()} 이전</button></div>
+<textarea rows="5" placeholder="예: 매일 운동하려고 알람 맞추는데 끄고 자버려..." id="wdesc">${w.desc}</textarea>
+${!w.res?`<button class="pbtn" id="wanal">🧠 의지 패턴 분석하기</button>`:wresult(w.res)+`<button class="reset" id="wreset">다른 패턴 분석하기</button>`}`;
+  }
+  return hdr('의지 코칭')+c;
+}
+
+function wresult(r){
+  return`<div class="rcard">
+<span class="rlabel" style="color:#f472b6">진짜 실패 원인</span><p style="font-size:13px;line-height:1.8;color:#888;margin-bottom:10px">${r.whyFail}</p>
+<div class="mbox"><p style="font-size:9px;color:#e879f9;font-weight:700;margin-bottom:3px;letter-spacing:1px">💡 잘못된 믿음</p>
+<p style="font-size:12px;color:#d8b4fe;line-height:1.5">${r.myth}</p></div></div>
+<div class="gcard"><span class="rlabel" style="color:#34d399">환경 설계</span>
+<p style="font-size:13px;line-height:1.9;color:#6ee7b7;white-space:pre-line;margin-bottom:10px">${r.design}</p>
+<span class="rlabel" style="color:#60a5fa">습관 루프 재설계</span>
+<p style="font-size:13px;line-height:1.8;color:#93c5fd;margin-bottom:10px">${r.habit}</p>
+<div class="ibox"><p style="font-size:9px;color:#60a5fa;font-weight:700;margin-bottom:3px;letter-spacing:1px">⚡ 오늘 딱 하나만</p>
+<p style="font-size:13px;color:#bfdbfe;line-height:1.5;font-weight:700">${r.oneStep}</p></div></div>`;
+}
+
+function pattern(){
+  const logs=S.logs;
+  const eL=logs.filter(l=>l.type==='emotion');
+  const cnt={};eL.forEach(l=>{cnt[l.mainEmotion]=(cnt[l.mainEmotion]||0)+1;});
+  const tc={};eL.forEach(l=>{if(l.trig)tc[l.trig]=(tc[l.trig]||0)+1;});
+  const topE=Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
+  const topT=Object.entries(tc).sort((a,b)=>b[1]-a[1])[0];
+  const wL=eL.filter(l=>(Date.now()-l.id)<604800000);
+  const bars=topE.slice(0,5).map(([e,c])=>{
+    const col=EC[e]||'#888';const p=Math.round((c/eL.length)*100);
+    return`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:12px;color:#888">${e}</span><span style="font-size:11px;color:${col};font-weight:700">${c}회 (${p}%)</span></div><div class="bar-bg"><div class="bar-fill" style="width:${p}%;background:${col}"></div></div></div>`;
+  }).join('');
+  return hdr('내 패턴')+`
+<div class="stat-grid">
+  <div class="sbox"><p style="font-size:20px;font-weight:900;color:#a78bfa">${logs.length}</p><p style="font-size:10px;color:#555;margin-top:2px">총 기록</p></div>
+  <div class="sbox"><p style="font-size:16px;font-weight:900;color:#f0f0ff">${wL.length}</p><p style="font-size:10px;color:#555;margin-top:2px">이번 주</p></div>
+  <div class="sbox"><p style="font-size:11px;font-weight:900;color:#fbbf24">${topT?topT[0]:'-'}</p><p style="font-size:10px;color:#555;margin-top:2px">주요 트리거</p></div>
+</div>
+${topE.length?`<div style="margin:0 16px 10px;background:#13131f;border-radius:14px;padding:14px;border:1px solid #1e1e35"><span class="rlabel" style="color:#4f46e5;display:block;margin-bottom:10px">감정 분포</span>${bars}</div>`:''}
+${logs.length===0?`<div style="text-align:center;padding:40px 20px;color:#2a2a3a"><div style="font-size:36px;margin-bottom:10px">📊</div><p style="font-size:13px;line-height:1.8;color:#333">아직 기록이 없어<br>감정을 기록하면 패턴이 보여</p></div>`:''}
+${logs.slice(0,6).map(l=>`<div class="logitem"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:10px;color:#444">${l.date} ${l.time}</span>${l.trig?`<span style="font-size:10px;background:#1a1500;color:#fbbf24;padding:2px 7px;border-radius:99px;font-weight:700">${l.trig}</span>`:''}</div><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span style="font-size:16px">${l.mainIcon||''}</span><span style="font-size:13px;font-weight:900;color:#f0f0ff">${l.mainEmotion||l.type}</span>${l.aiRes&&!l.aiRes.match?`<span style="font-size:10px;background:#1e103a;color:#a78bfa;padding:2px 7px;border-radius:99px;font-weight:700">→ ${l.aiRes.realEmotion}</span>`:''}</div>${l.aiRes&&l.aiRes.analysis?`<p style="font-size:11px;color:#555;line-height:1.4">${l.aiRes.analysis.substring(0,55)}...</p>`:''}</div>`).join('')}`;
+}
+
+function bind(){
+  document.querySelectorAll('[data-nav]').forEach(el=>el.addEventListener('click',()=>{S.scr=el.dataset.nav;render();}));
+  document.querySelectorAll('[data-emo]').forEach(el=>el.addEventListener('click',()=>{S.e.main=el.dataset.emo;S.e.icon=el.dataset.ei;S.e.subs=[];S.e.res=null;S.e.step=1;render();}));
+  document.querySelectorAll('[data-sub]').forEach(el=>el.addEventListener('click',()=>{const s=el.dataset.sub;const i=S.e.subs.indexOf(s);i>-1?S.e.subs.splice(i,1):S.e.subs.push(s);el.classList.toggle('on');}));
+  document.querySelectorAll('[data-body]').forEach(el=>el.addEventListener('click',()=>{const b=el.dataset.body;const i=S.e.bodies.indexOf(b);i>-1?S.e.bodies.splice(i,1):S.e.bodies.push(b);el.classList.toggle('on');}));
+  document.querySelectorAll('[data-trig]').forEach(el=>el.addEventListener('click',()=>{S.e.trig=S.e.trig===el.dataset.trig?'':el.dataset.trig;render();}));
+  document.querySelectorAll('[data-estep]').forEach(el=>el.addEventListener('click',()=>{
+    const st=parseInt(el.dataset.estep);
+    if(st===2&&document.getElementById('ce'))S.e.ce=document.getElementById('ce').value;
+    if(st===3&&document.getElementById('bt'))S.e.bt=document.getElementById('bt').value;
+    S.e.step=st;render();
+  }));
+  const ea=document.getElementById('eanal');
+  if(ea)ea.addEventListener('click',async()=>{
+    if(document.getElementById('memo'))S.e.memo=document.getElementById('memo').value;
+    ea.disabled=true;ea.textContent='분석 중...';
+    const sl=S.e.subs.join(', ')||S.e.ce||'없음';
+    const bl=[...S.e.bodies,...(S.e.bt?[S.e.bt]:[])].join(', ')||'없음';
+    try{
+      const r=await ai(`심리학 전문가로서 분석해줘.\n큰감정: ${S.e.main}, 세부: ${sl}, 신체반응: ${bl}, 트리거: ${S.e.trig||'없음'}, 상황: ${S.e.memo||'없음'}\nWilliam James 감정이론, Lisa Feldman Barrett, 폴에크만 참고. JSON만 응답:\n{"realEmotion":"실제감정","match":true,"matchComment":"한문장","analysis":"3문장","evidence":"1. xxx\\n2. xxx\\n3. xxx","suggestion":"1. 즉각해소법(근거)\\n2. 근본해소법(근거)"}`);
+      S.e.res=r;
+      savelog({id:Date.now(),type:'emotion',date:new Date().toLocaleDateString('ko-KR'),time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}),mainEmotion:S.e.main,mainIcon:S.e.icon,trig:S.e.trig,memo:S.e.memo,aiRes:r});
+      toast('✅ 기록 저장됨');render();
+    }catch(e){ea.disabled=false;ea.textContent='🧠 감정 분석하기';alert('오류: '+e.message);}
+  });
+  const er=document.getElementById('ereset');
+  if(er)er.addEventListener('click',()=>{S.e={main:'',icon:'',subs:[],bodies:[],bt:'',ce:'',trig:'',memo:'',res:null,step:0};render();});
+  document.querySelectorAll('[data-rtype]').forEach(el=>el.addEventListener('click',()=>{S.r.type=el.dataset.rtype;S.r.step=1;render();}));
+  document.querySelectorAll('[data-rstep]').forEach(el=>el.addEventListener('click',()=>{
+    const st=parseInt(el.dataset.rstep);
+    if(st===2&&document.getElementById('sit'))S.r.sit=document.getElementById('sit').value;
+    S.r.step=st;render();
+  }));
+  const ra=document.getElementById('ranal');
+  if(ra)ra.addEventListener('click',async()=>{
+    if(document.getElementById('sit'))S.r.sit=document.getElementById('sit').value;
+    if(document.getElementById('react'))S.r.react=document.getElementById('react').value;
+    ra.disabled=true;ra.textContent='분석 중...';
+    try{
+      const r=await ai(`심리학 전문가로서 관계 갈등을 분석해줘.\n관계: ${S.r.type}, 상황: ${S.r.sit}, 내반응: ${S.r.react||'없음'}\n애착이론, 인지왜곡, 방어기제 관점. JSON만 응답:\n{"otherPsych":"상대심리2~3문장","myPattern":"내패턴2문장","rootCause":"근본원인(심리학개념포함)","action":"대응방법2가지(번호)","warning":"하지말것1가지"}`);
+      S.r.res=r;
+      savelog({id:Date.now(),type:'relation',date:new Date().toLocaleDateString('ko-KR'),time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}),relType:S.r.type,aiRes:r});
+      toast('✅ 분석 저장됨');render();
+    }catch(e){ra.disabled=false;ra.textContent='🧠 관계 분석하기';alert('오류: '+e.message);}
+  });
+  const rr=document.getElementById('rreset');
+  if(rr)rr.addEventListener('click',()=>{S.r={type:'',sit:'',react:'',res:null,step:0};render();});
+  document.querySelectorAll('[data-wpat]').forEach(el=>el.addEventListener('click',()=>{S.w.pat=el.dataset.wpat;S.w.step=1;render();}));
+  document.querySelectorAll('[data-wstep]').forEach(el=>el.addEventListener('click',()=>{S.w.step=parseInt(el.dataset.wstep);render();}));
+  const wa=document.getElementById('wanal');
+  if(wa)wa.addEventListener('click',async()=>{
+    if(document.getElementById('wdesc'))S.w.desc=document.getElementById('wdesc').value;
+    wa.disabled=true;wa.textContent='분석 중...';
+    try{
+      const r=await ai(`행동변화 심리학 전문가로서 분석해줘.\n패턴: ${S.w.pat}, 상황: ${S.w.desc||'없음'}\nBaumeister 자아고갈, BJ Fogg 행동설계, Duhigg 습관루프 관점. JSON만 응답:\n{"whyFail":"실패원인(심리학근거)3문장","myth":"잘못된믿음2문장","design":"환경설계2가지(구체적)","habit":"습관루프재설계","oneStep":"오늘딱하나"}`);
+      S.w.res=r;
+      toast('✅ 코칭 저장됨');render();
+    }catch(e){wa.disabled=false;wa.textContent='🧠 의지 패턴 분석하기';alert('오류: '+e.message);}
+  });
+  const wr=document.getElementById('wreset');
+  if(wr)wr.addEventListener('click',()=>{S.w={pat:'',desc:'',res:null,step:0};render();});
+}
+
+function tick(){const n=new Date();document.getElementById('clk').textContent=n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');}
+setInterval(tick,10000);tick();
+render();
+</script>
+</body>
+</html>
