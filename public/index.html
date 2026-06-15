@@ -246,7 +246,11 @@ function eresult(r){
 <div class="evidence-box">
   <p class="evidence-label">판단 근거</p>
   <p class="evidence-text">${r.evidence}</p>
-</div></div>
+</div>
+${r.friendlySummary?`<div style="background:#fff8f0;border-radius:12px;padding:14px;margin-top:12px;border-left:3px solid #fb923c">
+<p style="font-size:11px;color:#ea580c;font-weight:800;margin-bottom:5px">💬 쉽게 말하면</p>
+<p style="font-size:14px;color:#7c2d12;line-height:1.7">${r.friendlySummary}</p>
+</div>`:''}</div>
 <div class="result-green">
 <span class="result-label" style="color:#059669">해소 방법 💚</span>
 <p class="suggestion-text">${r.suggestion}</p>
@@ -399,7 +403,7 @@ function bind(){
     const sl=S.e.subs.join(', ')||S.e.ce||'없음';
     const bl=[...S.e.bodies,...(S.e.bt?[S.e.bt]:[])].join(', ')||'없음';
     try{
-      const r=await ai(`심리학 전문가로서 분석해줘.\n큰감정: ${S.e.main}, 세부: ${sl}, 신체반응: ${bl}, 트리거: ${S.e.trig||'없음'}, 상황: ${S.e.memo||'없음'}\nWilliam James 감정이론, Lisa Feldman Barrett, 폴에크만 참고. JSON만 응답:\n{"realEmotion":"실제감정","match":true,"matchComment":"한문장","analysis":"3문장","evidence":"1. xxx\\n2. xxx\\n3. xxx","suggestion":"1. 즉각해소법(근거)\\n2. 근본해소법(근거)"}`);
+      const r=await ai(`심리학 전문가로서 분석해줘.\n큰감정: ${S.e.main}, 세부: ${sl}, 신체반응: ${bl}, 트리거: ${S.e.trig||'없음'}, 상황: ${S.e.memo||'없음'}\nWilliam James 감정이론, Lisa Feldman Barrett, 폴에크만 참고. JSON만 응답:\n{"realEmotion":"실제감정","match":true,"matchComment":"한문장","analysis":"3문장(전문적,심리학근거포함)","evidence":"1. xxx\\n2. xxx\\n3. xxx","suggestion":"1. 즉각해소법(심리학근거)\\n2. 근본해소법(심리학근거)","friendlySummary":"친한 친구가 반말로 핵심만 콕 집어 1~2문장. 전문용어 없이 쉽고 직접적으로. ㅋㅋ 같은 말투 가능"}`);
       S.e.res=r;
       savelog({id:Date.now(),type:'emotion',date:new Date().toLocaleDateString('ko-KR'),time:new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}),mainEmotion:S.e.main,mainIcon:S.e.icon,trig:S.e.trig,memo:S.e.memo,aiRes:r});
       toast('✅ 기록이 저장됐어요');render();
