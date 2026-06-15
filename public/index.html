@@ -350,14 +350,14 @@ function pattern(){
 ${topE.length?`<div style="margin:0 16px 12px;background:#fff;border-radius:20px;padding:18px;box-shadow:0 1px 8px rgba(0,0,0,.06)">
 <p style="font-size:11px;font-weight:800;color:#b39ddb;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px">감정 분포</p>${bars}</div>`:''}
 ${logs.length===0?`<div style="text-align:center;padding:48px 20px;color:#ddd"><div style="font-size:48px;margin-bottom:12px">🌸</div><p style="font-size:14px;line-height:1.8;color:#ccc">아직 기록이 없어요<br>감정을 기록하면 패턴이 보여요</p></div>`:''}
-${logs.slice(0,6).map((l,idx)=>`<div class="log-item" style="cursor:pointer" onclick="toggleLog(${idx})">
+${logs.slice(0,6).map((l,idx)=>`<div class="log-item" onclick="toggleLog(${idx})" style="cursor:pointer">
 <div style="display:flex;justify-content:space-between;margin-bottom:6px">
 <span style="font-size:11px;color:#bbb">${l.date} ${l.time}</span>
 ${l.trig?`<span style="font-size:11px;background:#fff8e8;color:#d97706;padding:2px 10px;border-radius:99px;font-weight:700">${l.trig}</span>`:''}
 </div>
 <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
 <span style="font-size:18px">${l.mainIcon||'💬'}</span>
-<span style="font-size:14px;font-weight:800;color:#1a1a2e">${l.mainEmotion||l.relType||l.type}</span>
+<span style="font-size:14px;font-weight:800;color:#1a1a2e">${l.mainEmotion||l.relType||'기록'}</span>
 ${l.aiRes&&!l.aiRes.match&&l.aiRes.realEmotion?`<span style="font-size:11px;background:#f5eeff;color:#7c3aed;padding:2px 8px;border-radius:99px;font-weight:700">→ ${l.aiRes.realEmotion}</span>`:''}
 </div>
 ${l.aiRes&&l.aiRes.analysis?`<p style="font-size:12px;color:#bbb;line-height:1.5">${l.aiRes.analysis.substring(0,55)}...</p>`:''}
@@ -372,11 +372,14 @@ ${l.aiRes?`<p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:10p
 <p style="font-size:12px;color:#065f46;line-height:1.7;white-space:pre-line">${l.aiRes.suggestion||l.aiRes.action||l.aiRes.design||''}</p>
 </div>`:''}
 </div>
-</div>`).join('')}
+</div>`).join('')}`;
+}
+
 function toggleLog(idx){
   const el=document.getElementById('log-detail-'+idx);
   if(el)el.style.display=el.style.display==='none'?'block':'none';
 }
+
 function bind(){
   document.querySelectorAll('[data-nav]').forEach(el=>el.addEventListener('click',()=>{S.scr=el.dataset.nav;render();}));
   document.querySelectorAll('[data-emo]').forEach(el=>el.addEventListener('click',()=>{S.e.main=el.dataset.emo;S.e.icon=el.dataset.ei;S.e.subs=[];S.e.res=null;S.e.step=1;render();}));
